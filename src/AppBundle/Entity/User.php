@@ -37,6 +37,15 @@ class User
      */
     private $date_of_birth;
 
+    public function getData() {
+        return array(
+            'id' => $this->id,
+            'username' => $this->username,
+            'full_name' => $this->full_name,
+            'date_of_birth' => $this->date_of_birth->format('d/m/Y'),
+        );
+    }
+
     /**
      * Get id
      *
