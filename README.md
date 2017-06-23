@@ -1,69 +1,41 @@
-Symfony Standard Edition
+Symfony Api Test App
 ========================
 
-Welcome to the Symfony Standard Edition - a fully-functional Symfony
-application that you can use as the skeleton for your new applications.
+This is a very simple symfony app that returns data of a user with API calls.
 
-For details on how to download and get started with Symfony, see the
-[Installation][1] chapter of the Symfony Documentation.
 
-What's inside?
+Installation
 --------------
 
-The Symfony Standard Edition is configured with the following defaults:
+  * Clone the repository
 
-  * An AppBundle you can use to start coding;
+  * Run composer install
 
-  * Twig as the only configured template engine;
+  * Fill in the mysql credentials in app/config/parameters.yml (the database name must not exist, it will be created in the process)
 
-  * Doctrine ORM/DBAL;
+  * Run the install.sh script. This will instantiate the database and populate it with 2 sample users
 
-  * Swiftmailer;
+Usage
+--------------
 
-  * Annotations enabled for everything.
+  * Do an HTTP request (Using Postman or otherwise) using the header X-symfony-api-key to provide the API key
 
-It comes pre-configured with the following bundles:
 
-  * **FrameworkBundle** - The core Symfony framework bundle
+Online Resources Used
+--------------
 
-  * [**SensioFrameworkExtraBundle**][6] - Adds several enhancements, including
-    template and routing annotation capability
+Acquainting myself with symfony took the majority of time, so I mainly used their documentation pages.
 
-  * [**DoctrineBundle**][7] - Adds support for the Doctrine ORM
+  * https://symfony.com/doc/current/controller.html
+  * https://symfony.com/doc/current/doctrine.html
+  * http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/basic-mapping.html
+  * https://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html
 
-  * [**TwigBundle**][8] - Adds support for the Twig templating engine
+Concerns
+--------------
 
-  * [**SecurityBundle**][9] - Adds security by integrating Symfony's security
-    component
+Api key should not be stored like that in base.
+Just followed instructions, but otherwise the data should be encrypted
 
-  * [**SwiftmailerBundle**][10] - Adds support for Swiftmailer, a library for
-    sending emails
-
-  * [**MonologBundle**][11] - Adds support for Monolog, a logging library
-
-  * **WebProfilerBundle** (in dev/test env) - Adds profiling functionality and
-    the web debug toolbar
-
-  * **SensioDistributionBundle** (in dev/test env) - Adds functionality for
-    configuring and working with Symfony distributions
-
-  * [**SensioGeneratorBundle**][13] (in dev/test env) - Adds code generation
-    capabilities
-
-  * **DebugBundle** (in dev/test env) - Adds Debug and VarDumper component
-    integration
-
-All libraries and bundles included in the Symfony Standard Edition are
-released under the MIT or BSD license.
-
-Enjoy!
-
-[1]:  https://symfony.com/doc/3.2/setup.html
-[6]:  https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html
-[7]:  https://symfony.com/doc/3.2/doctrine.html
-[8]:  https://symfony.com/doc/3.2/templating.html
-[9]:  https://symfony.com/doc/3.2/security.html
-[10]: https://symfony.com/doc/3.2/email.html
-[11]: https://symfony.com/doc/3.2/logging.html
-[12]: https://symfony.com/doc/3.2/assetic/asset_management.html
-[13]: https://symfony.com/doc/current/bundles/SensioGeneratorBundle/index.html
+Used the whole symfony framework. The assignment could probably be done with individual 
+components and not be so bulky. However since I was not familiar with symfony, it was the most efficient way to act.
