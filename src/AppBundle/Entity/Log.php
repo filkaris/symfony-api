@@ -19,6 +19,7 @@ class Log
 
     /**
      * Many Users have One Address.
+     * @ORM\Column(nullable=true)
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
@@ -32,7 +33,7 @@ class Log
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $request_url;
+    private $path;
 
     /**
      * @ORM\Column(type="string", length=100)
@@ -40,7 +41,7 @@ class Log
     private $status;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text",nullable=true)
      */
     private $error_message;
 
@@ -79,27 +80,27 @@ class Log
     }
 
     /**
-     * Set requestUrl
+     * Set path
      *
-     * @param string $requestUrl
+     * @param string $path
      *
      * @return Log
      */
-    public function setRequestUrl($requestUrl)
+    public function setPath($path)
     {
-        $this->request_url = $requestUrl;
+        $this->path = $path;
 
         return $this;
     }
 
     /**
-     * Get requestUrl
+     * Get path
      *
      * @return string
      */
-    public function getRequestUrl()
+    public function getPath()
     {
-        return $this->request_url;
+        return $this->path;
     }
 
     /**
@@ -157,7 +158,7 @@ class Log
      *
      * @return Log
      */
-    public function setUserId(\AppBundle\Entity\User $userId = null)
+    public function setUserId($userId = null)
     {
         $this->user_id = $userId;
 

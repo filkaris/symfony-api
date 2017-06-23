@@ -13,26 +13,47 @@ use AppBundle\Utils\Lib;
 class UserController extends Controller
 {
     /**
-     * @Route("/user", name="user")
-     * @Route("/user/{id}", name="user")
+     * @Route("/user")
+     * @Route("/user/{id}")
      */
     public function showAction( Request $request, $id = null, EntityManagerInterface $em )
     {
-        if (!$id) 
-            return Lib::formatResponse( 'error', 'No User Id provided. Try /user/{id}' );
+        $user_id = null;
 
-        $user = $em->getRepository('AppBundle:User')->find($id);
+        if (!$id) {
+            $status = 'error';
+            $data ='No User Id provided. Try /user/{id}' ;
+        }
+        else {
 
-        if (!$user) 
-            return Lib::formatResponse( 'error', "No User found with Id: $id" );
+            $user = $em->getRepository('AppBundle:User')->find($id);
+            $api_key = $request->headers->get('X-symfony-api-key');
 
-        $api_key = $request->headers->get('X-symfony-api-key');
-        if (!$api_key) 
-            return Lib::formatResponse( 'error', 'No API Key provided. Please use the header X-symofny-api-key in your request');
+            if (!$user) {
+                $status = 'error';
+                $data ="No User found with Id: $id" ;
+            }
+            else if (!$api_key) {
+                $status = 'error';
+                $data = 'No API Key provided. Please use the header X-symofny-api-key in your request';
+            }
+            else if ( $user->getApiKey() != $api_key ) {
+                $status = 'error';
+                $data = "Wrong API Key provided for user $id";
+                $repo = $em->getRepository('AppBundle:User');
+                $user = $repo->findOneBy( ['api_key'=>$api_key] );
+                if ( $user )
+                    $user_id = $user->getId();
+            }
+            else {
+                $status = 'success';
+                $data = $user->getData();
+                $user_id = $id;
+            }
 
-        if ( $user->getApiKey() != $api_key ) 
-            return Lib::formatResponse( 'error', "Wrong API Key provided for user $id");
+        }
 
-        return Lib::formatResponse( 'success', $user->getData() );
+        Lib::logRequest( $em, $request, $status, $data, $user_id );
+        return Lib::formatResponse( $status, $data );
     }
 }
